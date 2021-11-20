@@ -10,7 +10,7 @@ _SwiftNiceScale_ is part of the [OpenAlloc](https://github.com/openalloc) family
 
 ## NiceScale
 
-<img src="https://github.com/openalloc/SwiftNiceScale/blob/main/Images/naive_nice.png" width="1049" height="319"/>
+<img src="https://github.com/openalloc/SwiftNiceScale/blob/main/Images/naive_nice.png" width="525" height="160"/>
 
 ```swift
 let ns = NiceScale(105...543, desiredTicks: 5)
@@ -49,41 +49,45 @@ The initialization values are also available as properties:
 
 Computed properties are lazy, meaning that they are only calculated when first needed.
 
-- `var extent: T` - The distance between bounds of the range.
-
-- `var hasNegativeRange: Bool` - If true, the range includes negative values.
-
-- `var hasPositiveRange: Bool` - If true, the range includes positive values.
-
-- `var negativeExtent: T` - If there’s a negative portion of range, the distance between its lower bound and 0. A non-negative value.
-
-- `var negativeExtentUnit: T?` - The negativeExtent, expressed as unit value in the range 0…1.
-
-- `var negativeRange: NiceScale<T>.ValueRange` - The portion of the range that is negative. 0…0 if none.
-
-- `var positiveExtent: T` - If there’s a positive portion of range, the distance between its upper bound and 0. A non-negative value.
-
-- `var positiveExtentUnit: T?` - The positiveExtent, expressed as unit value in the range 0…1.
-
-- `var positiveRange: NiceScale<T>.ValueRange` - The portion of the range that is positive. 0…0 if none.
+The basic set of properties...
 
 - `var range: NiceScale<T>.ValueRange` - The calculated ‘nice’ range, which should include the ‘raw’ range used to initialize this object.
 
-- `var tickFractionDigits: Int` - Number of fractional digits to show in tick label values.
+- `var extent: T` - The distance between bounds of the range.
+
+- `var ticks: Int` - The number of ticks in the range. This may differ from the `desiredTicks` used to initialize the object.
 
 - `var tickInterval: T` - The distance between ticks in the range.
 
 - `var tickValues: [T]` - The values for the ticks in the range.
 
-- `var ticks: Int` - The number of ticks in the range. This may differ from the desiredTicks used to initialize the object.
+- `var tickFractionDigits: Int` - Number of fractional digits to show in tick label values.
+
+More specialized properties dealing with positive and negative portions of scale...
+
+- `var hasNegativeRange: Bool` - If true, the range includes negative values.
+
+- `var hasPositiveRange: Bool` - If true, the range includes positive values.
+
+- `var negativeRange: NiceScale<T>.ValueRange` - The portion of the range that is negative. `0…0` if none.
+
+- `var positiveRange: NiceScale<T>.ValueRange` - The portion of the range that is positive. `0…0` if none.
+
+- `var negativeExtent: T` - If there’s a negative portion of range, the distance between its lower bound and 0. A non-negative value.
+
+- `var positiveExtent: T` - If there’s a positive portion of range, the distance between its upper bound and 0. A non-negative value.
+
+- `var negativeExtentUnit: T?` - The negativeExtent, expressed as unit value in the range `0…1`.
+
+- `var positiveExtentUnit: T?` - The positiveExtent, expressed as unit value in the range `0…1`.
 
 #### Instance Methods
 
-- `func scaleToUnit(T) -> T` - Scale value to 0…1 in the range. 
+- `func scaleToUnit(T) -> T` - Scale value to `0…1` in the range. 
 
-- `func scaleToUnitNegative(T) -> T` - Scale value to 0…1 in the negative portion of range, if any.
+- `func scaleToUnitNegative(T) -> T` - Scale value to `0…1` in the negative portion of range, if any.
 
-- `func scaleToUnitPositive(T) -> T` - Scale value to 0…1 in the positive portion of range, if any.
+- `func scaleToUnitPositive(T) -> T` - Scale value to `0…1` in the positive portion of range, if any.
 
 ## See Also
 
