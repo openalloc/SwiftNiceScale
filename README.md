@@ -47,7 +47,7 @@ The initialization values are also available as properties:
 
 #### Instance Properties
 
-Properties are lazy, meaning that they are only calculated when first needed.
+Computed properties are lazy, meaning that they are only calculated when first needed.
 
 - `var extent: T` - The distance between bounds of the range.
 
