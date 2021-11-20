@@ -2,6 +2,8 @@
 
 Generate 'nice' numbers for label ticks over a range, such as for y-axis on a chart.
 
+Adapted from pseudo-code in *Graphics Gems, Volume 1* by Andrew S. Glassner (1995). Using the example from the book:
+
 Available as an open source Swift library to be incorporated in other apps.
 
 _SwiftNiceScale_ is part of the [OpenAlloc](https://github.com/openalloc) family of open source Swift software tools.
@@ -9,8 +11,6 @@ _SwiftNiceScale_ is part of the [OpenAlloc](https://github.com/openalloc) family
 ## NiceScale
 
 <img src="https://github.com/openalloc/SwiftNiceScale/blob/main/Images/naive_nice.png" width="1049" height="319"/>
-
-Adapted from pseudo-code in *Graphics Gems, Volume 1* by Andrew S. Glassner (1995). Using the example from the book:
 
 ```swift
 let ns = NiceScale(105...543, desiredTicks: 5)
