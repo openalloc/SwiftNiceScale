@@ -117,8 +117,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ## Contributing
 
-The contributions of other regressors, such as a polynominal regressor, would be most welcome!
-
 Other contributions are welcome too. You are encouraged to submit pull requests to fix bugs, improve documentation, or offer new features. 
 
 The pull request need not be a production-ready feature or fix. It can be a draft of proposed changes, or simply a test to show that expected behavior is buggy. Discussion on the pull request can proceed from there.
