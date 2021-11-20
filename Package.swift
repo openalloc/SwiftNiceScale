@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "NiceScale",
+    name: "SwiftNiceScale",
     products: [
         .library(name: "NiceScale", targets: ["NiceScale"]),
     ],
