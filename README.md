@@ -8,6 +8,8 @@ _SwiftNiceScale_ is part of the [OpenAlloc](https://github.com/openalloc) family
 
 ## NiceScale
 
+<img src="https://github.com/openalloc/SwiftNiceScale/blob/main/Images/naive_nice.png" width="1049" height="319"/>
+
 Adapted from pseudo-code in *Graphics Gems, Volume 1* by Andrew S. Glassner (1995). Using the example from the book:
 
 ```swift
