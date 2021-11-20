@@ -2,7 +2,7 @@
 
 Generate 'nice' numbers for label ticks over a range, such as for y-axis on a chart.
 
-Adapted from pseudo-code in *Graphics Gems, Volume 1* by Andrew S. Glassner (1995). Using the example from the book:
+Adapted from pseudo-code in *Graphics Gems, Volume 1* by Andrew S. Glassner (1995).
 
 Available as an open source Swift library to be incorporated in other apps.
 
