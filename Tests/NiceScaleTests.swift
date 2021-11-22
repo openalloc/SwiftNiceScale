@@ -27,7 +27,7 @@ class NiceScaleTests: XCTestCase {
     typealias NS = NiceScale<Double>
     
     func testExample() {
-        let ns = NiceScale(105...543, desiredTicks: 5)
+        let ns = NiceScale(105...543, desiredTicks: 5)!
         XCTAssertEqual(0, ns.tickFractionDigits)
         XCTAssertEqual(100, ns.tickInterval)
         XCTAssertEqual(100.0...600.0, ns.range)
@@ -37,29 +37,29 @@ class NiceScaleTests: XCTestCase {
     }
 
     func testFractionDigits() {
-        let ns20 = NS(1...4, desiredTicks: 20)
+        let ns20 = NS(1...4, desiredTicks: 20)!
         XCTAssertEqual(1, ns20.tickFractionDigits)
 
-        let ns200 = NS(1...4, desiredTicks: 200)
+        let ns200 = NS(1...4, desiredTicks: 200)!
         XCTAssertEqual(2, ns200.tickFractionDigits)
     }
     
-    func testNoRange() {
-        let ns = NS(0...0)
-        XCTAssertFalse(ns.hasPositiveRange)
-        XCTAssertFalse(ns.hasNegativeRange)
-        XCTAssertEqual(0...0, ns.positiveRange)
-        XCTAssertEqual(0...0, ns.negativeRange)
-        XCTAssertEqual(0, ns.positiveExtent)
-        XCTAssertEqual(0, ns.negativeExtent)
+    func testBadInit() {
+        let ns0 = NS(0...0)
+        XCTAssertNil(ns0)
         
-        XCTAssertEqual(Double.infinity, ns.scaleToUnit(1000))
-        XCTAssertEqual(Double.infinity, ns.scaleToUnitPositive(1000))
-        XCTAssertEqual(-Double.infinity, ns.scaleToUnitNegative(1000))
+        let ns1 = NS(1...1)
+        XCTAssertNil(ns1)
+        
+        let ns2 = NS(0...1, desiredTicks: 0)
+        XCTAssertNil(ns2)
+        
+        let ns3 = NS(0...1, desiredTicks: 1)
+        XCTAssertNil(ns3)
     }
     
     func testPositiveRange() {
-        let ns = NS(10...100)
+        let ns = NS(10...100)!
         XCTAssertTrue(ns.hasPositiveRange)
         XCTAssertFalse(ns.hasNegativeRange)
         XCTAssertEqual(10...100, ns.positiveRange)
@@ -73,7 +73,7 @@ class NiceScaleTests: XCTestCase {
     }
     
     func testNegativeRange() {
-        let ns = NS(-100...(-10))
+        let ns = NS(-100...(-10))!
         XCTAssertFalse(ns.hasPositiveRange)
         XCTAssertTrue(ns.hasNegativeRange)
         XCTAssertEqual(0...0, ns.positiveRange)
@@ -87,7 +87,7 @@ class NiceScaleTests: XCTestCase {
     }
     
     func testBothRange() {
-        let ns = NS(-100...100)
+        let ns = NS(-100...100)!
         XCTAssertTrue(ns.hasPositiveRange)
         XCTAssertTrue(ns.hasNegativeRange)
         XCTAssertEqual(0...100, ns.positiveRange)

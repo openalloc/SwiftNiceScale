@@ -2,7 +2,7 @@
 
 Generate 'nice' numbers for label ticks over a range, such as for y-axis on a chart.
 
-Adapted from pseudo-code in *Graphics Gems, Volume 1* by Andrew S. Glassner (1995).
+Adapted from pseudo-code in *Graphics Gems, Volume 1* by Andrew S. Glassner (1995). See also Tufte (1983) for a discussion of topic.
 
 Available as an open source Swift library to be incorporated in other apps.
 
@@ -16,12 +16,15 @@ _SwiftNiceScale_ is part of the [OpenAlloc](https://github.com/openalloc) family
 let ns = NiceScale(105...543, desiredTicks: 5)
 
 print("nice range=\(ns.range)")
+
 => "nice range=100.0...600.0"
 
 print("tick interval=\(ns.tickInterval)")
+
 => "tick interval=100.0"
 
 print("labels=\(ns.tickValues)")
+
 => "labels=[100.0, 200.0, 300.0, 400.0, 500.0, 600.0]"
 ```
 
@@ -37,7 +40,9 @@ typealias ValueRange = ClosedRange<T>
 
 #### Initializer
 
-- `init(_ rawRange: NiceScale<T>.ValueRange, desiredTicks: Int)` - create a new `NiceScale` instance
+- `init?(_ rawRange: NiceScale<T>.ValueRange, desiredTicks: Int)` - create a new `NiceScale` instance
+
+Initialization will fail and return `nil` if provided nonsense parameters, such as a range with zero extent, or a desired tick count less than 2.
 
 The initialization values are also available as properties:
 

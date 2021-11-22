@@ -26,7 +26,8 @@ public final class NiceScale<T: BinaryFloatingPoint & Real> {
     public let rawRange: ValueRange
     public let desiredTicks: Int
     
-    public init(_ rawRange: ValueRange, desiredTicks: Int = 10) {
+    public init?(_ rawRange: ValueRange, desiredTicks: Int = 10) {
+        guard rawRange.lowerBound < rawRange.upperBound, desiredTicks > 1 else { return nil }
         self.rawRange = rawRange
         self.desiredTicks = desiredTicks
     }
