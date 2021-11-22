@@ -13,7 +13,7 @@ _SwiftNiceScale_ is part of the [OpenAlloc](https://github.com/openalloc) family
 <img src="https://github.com/openalloc/SwiftNiceScale/blob/main/Images/naive_nice.png" width="525" height="160"/>
 
 ```swift
-let ns = NiceScale(105...543, desiredTicks: 5)
+let ns = NiceScale(105...543, desiredTicks: 5)!
 
 print("nice range=\(ns.range)")
 
