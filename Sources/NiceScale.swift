@@ -1,6 +1,6 @@
 //
 // NiceScale.swift
-//  
+//
 // Copyright 2021, 2022 OpenAlloc LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,48 +20,43 @@ import Foundation
 import Numerics
 
 public final class NiceScale<T: BinaryFloatingPoint & Real> {
-    
     public typealias ValueRange = ClosedRange<T>
-    
+
     public let rawRange: ValueRange
     public let desiredTicks: Int
-    
+
     public init?(_ rawRange: ValueRange, desiredTicks: Int = 10) {
         guard rawRange.lowerBound < rawRange.upperBound, desiredTicks > 1 else { return nil }
         self.rawRange = rawRange
         self.desiredTicks = desiredTicks
     }
-    
+
     // MARK: - Range
-    
+
     /// The calculated 'nice' range, which should include the 'raw' range used to initialize this object.
     public lazy var range: ValueRange = {
-        guard tickInterval != 0 else { return 0...0 } // avoid NaN error in creating range
+        guard tickInterval != 0 else { return 0 ... 0 } // avoid NaN error in creating range
         let min = floor(rawRange.lowerBound / tickInterval) * tickInterval
         let max = ceil(rawRange.upperBound / tickInterval) * tickInterval
         return min ... max
     }()
 
     /// The distance between bounds of the range.
-    public lazy var extent: T = {
-        range.upperBound - range.lowerBound
-    }()
+    public lazy var extent: T = range.upperBound - range.lowerBound
 
     // MARK: - Ticks
-    
+
     /// The number of ticks in the range. This may differ from the desiredTicks used to initialize the object.
     public lazy var ticks: Int = {
         guard tickInterval > 0 else { return 0 }
         return Int(extent / tickInterval) + 1
     }()
-    
+
     /// The values for the ticks in the range.
-    public lazy var tickValues: [T] = {
-        (0..<ticks).map {
-            range.lowerBound + (T($0) * tickInterval)
-        }
-    }()
-    
+    public lazy var tickValues: [T] = (0 ..< ticks).map {
+        range.lowerBound + (T($0) * tickInterval)
+    }
+
     /// The distance between ticks in the range.
     public lazy var tickInterval: T = {
         let rawExtent = rawRange.upperBound - rawRange.lowerBound
@@ -77,43 +72,31 @@ public final class NiceScale<T: BinaryFloatingPoint & Real> {
     }()
 
     // MARK: - Positive/Negative Range
-    
+
     /// If true, the range includes positive values.
-    public lazy var hasPositiveRange: Bool = {
-        range.upperBound > 0
-    }()
-    
+    public lazy var hasPositiveRange: Bool = range.upperBound > 0
+
     /// If true, the range includes negative values.
-    public lazy var hasNegativeRange: Bool = {
-        range.lowerBound < 0
-    }()
-    
+    public lazy var hasNegativeRange: Bool = range.lowerBound < 0
+
     /// The portion of the range that is positive. 0...0 if none.
-    public lazy var positiveRange: ValueRange = {
-        max(0, range.lowerBound)...max(0, range.upperBound)
-    }()
-    
+    public lazy var positiveRange: ValueRange = max(0, range.lowerBound) ... max(0, range.upperBound)
+
     /// The portion of the range that is negative. 0...0 if none.
-    public lazy var negativeRange: ValueRange = {
-        min(0, range.lowerBound)...min(0, range.upperBound)
-    }()
-    
+    public lazy var negativeRange: ValueRange = min(0, range.lowerBound) ... min(0, range.upperBound)
+
     /// If there's a positive portion of range, the distance between its upper bound and 0. A non-negative value.
-    public lazy var positiveExtent: T = {
-        positiveRange.upperBound - positiveRange.lowerBound
-    }()
-    
+    public lazy var positiveExtent: T = positiveRange.upperBound - positiveRange.lowerBound
+
     /// If there's a negative portion of range, the distance between its lower bound and 0. A non-negative value.
-    public lazy var negativeExtent: T = {
-        negativeRange.upperBound - negativeRange.lowerBound
-    }()
-    
+    public lazy var negativeExtent: T = negativeRange.upperBound - negativeRange.lowerBound
+
     /// The positiveExtent, expressed as unit value in the range 0...1.
     public lazy var positiveExtentUnit: T? = {
         guard extent != T.zero else { return nil }
         return positiveExtent / extent
     }()
-    
+
     /// The negativeExtent, expressed as unit value in the range 0...1.
     public lazy var negativeExtentUnit: T? = {
         guard extent != T.zero else { return nil }
@@ -122,29 +105,28 @@ public final class NiceScale<T: BinaryFloatingPoint & Real> {
 }
 
 extension NiceScale {
-    
     /// Returns a "nice" number approximately equal to range.
     /// If round = true, rounds the number, otherwise returns its ceiling.
     private func niceify(_ x: T, round: Bool) -> T {
         let exp = floor(T.log10(x)) // exponent of x
         let f = x / T.pow(10, exp) // fractional part of x, in 1...10
         let niceFraction: T = {
-            if (round) {
-                if (f < 1.5) {
+            if round {
+                if f < 1.5 {
                     return 1
-                } else if (f < 3) {
+                } else if f < 3 {
                     return 2
-                } else if (f < 7) {
+                } else if f < 7 {
                     return 5
                 } else {
                     return 10
                 }
             } else {
-                if (f <= 1) {
+                if f <= 1 {
                     return 1
-                } else if (f <= 2) {
+                } else if f <= 2 {
                     return 2
-                } else if (f <= 5) {
+                } else if f <= 5 {
                     return 5
                 } else {
                     return 10
@@ -155,24 +137,24 @@ extension NiceScale {
     }
 }
 
-/// MARK: - Scaling methods
+// MARK: - Scaling methods
 
-extension NiceScale {
+public extension NiceScale {
     /// Scale value to 0...1 in the range.
     @inlinable
-    public func scaleToUnit(_ val: T) -> T {
+    func scaleToUnit(_ val: T) -> T {
         (val - range.lowerBound) / extent
     }
-    
+
     /// Scale value to 0...1 in the positive portion of range, if any.
     @inlinable
-    public func scaleToUnitPositive(_ val: T) -> T {
+    func scaleToUnitPositive(_ val: T) -> T {
         (val - positiveRange.lowerBound) / positiveExtent
     }
-    
+
     /// Scale value to 0...1 in the negative portion of range, if any.
     @inlinable
-    public func scaleToUnitNegative(_ val: T) -> T {
+    func scaleToUnitNegative(_ val: T) -> T {
         1 - ((val - negativeRange.lowerBound) / negativeExtent)
     }
 }
