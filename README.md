@@ -96,21 +96,10 @@ More specialized properties dealing with positive and negative portions of scale
 
 ## See Also
 
-Swift open-source libraries (by the same author):
+This library is a member of the _OpenAlloc Project_.
 
-* [AllocData](https://github.com/openalloc/AllocData) - standardized data formats for investing-focused apps and tools
-* [FINporter](https://github.com/openalloc/FINporter) - library and command-line tool to transform various specialized finance-related formats to the standardized schema of AllocData
-* [SwiftCompactor](https://github.com/openalloc/SwiftCompactor) - formatters for the concise display of Numbers, Currency, and Time Intervals
-* [SwiftModifiedDietz](https://github.com/openalloc/SwiftModifiedDietz) - A tool for calculating portfolio performance using the Modified Dietz method
-* [SwiftRegressor](https://github.com/openalloc/SwiftRegressor) - a linear regression tool that’s flexible and easy to use
-* [SwiftSeriesResampler](https://github.com/openalloc/SwiftSeriesResampler) - transform a series of coordinate values into a new series with uniform intervals
-* [SwiftSimpleTree](https://github.com/openalloc/SwiftSimpleTree) - a nested data structure that’s flexible and easy to use
-
-And open source apps using this library (by the same author):
-
-* [FlowAllocator](https://openalloc.github.io/FlowAllocator/index.html) - portfolio rebalancing tool for macOS
-* [FlowWorth](https://openalloc.github.io/FlowWorth/index.html) - a new portfolio performance and valuation tracking tool for macOS
-
+* [_OpenAlloc_](https://openalloc.github.io) - product website for all the _OpenAlloc_ apps and libraries
+* [_OpenAlloc Project_](https://github.com/openalloc) - Github site for the development project, including full source code
 
 ## License
 
